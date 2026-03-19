@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nguyễn Hoàng Anh – Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --indigo: #6366f1;
+      --purple: #8b5cf6;
+      --cyan:   #06b6d4;
+      --green:  #22c55e;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #07071a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      overflow-x: hidden;
+    }
+
+    /* ── Grid bg ─────────────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(99,102,241,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99,102,241,.05) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none;
+    }
+
+    /* ── Blobs ───────────────────────────────────────── */
+    .blob { position:fixed; border-radius:50%; filter:blur(110px); opacity:.18; pointer-events:none; animation:drift 14s ease-in-out infinite; }
+    .b1 { width:640px;height:640px;background:var(--indigo);top:-220px;left:-180px; }
+    .b2 { width:520px;height:520px;background:var(--purple);bottom:-160px;right:-160px;animation-delay:6s; }
+    .b3 { width:380px;height:380px;background:var(--cyan);top:45%;left:55%;animation-delay:10s; }
+    @keyframes drift {
+      0%,100%{ transform:translate(0,0) scale(1); }
+      50%    { transform:translate(25px,-30px) scale(1.05); }
+    }
+
+    /* ── Layout ──────────────────────────────────────── */
+    .wrapper {
+      position: relative; z-index: 1;
+      display: flex; flex-direction: column; gap: 20px;
+      max-width: 660px; width: 100%;
+      animation: slideUp .8s cubic-bezier(.16,1,.3,1) both;
+    }
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(40px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ── Card base ───────────────────────────────────── */
+    .card {
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: 24px;
+      padding: 32px 36px;
+      transition: border-color .3s;
+    }
+    .card:hover { border-color: rgba(99,102,241,.35); }
+
+    /* ── Hero card ───────────────────────────────────── */
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .avatar {
+      width: 100px; height: 100px; flex-shrink: 0;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo), var(--purple), var(--cyan));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.8rem;
+      box-shadow: 0 0 0 3px rgba(99,102,241,.25), 0 0 48px rgba(99,102,241,.35);
+      animation: glow 3s ease-in-out infinite;
+    }
+    @keyframes glow {
+      0%,100%{ box-shadow:0 0 0 3px rgba(99,102,241,.2),0 0 40px rgba(99,102,241,.3); }
+      50%    { box-shadow:0 0 0 6px rgba(99,102,241,.1),0 0 64px rgba(139,92,246,.5); }
+    }
+    .hero-text h1 {
+      font-size: 2rem; font-weight: 900; letter-spacing: -1px;
+      background: linear-gradient(135deg, #fff 35%, #a5b4fc 65%, #67e8f9);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 4px;
+    }
+    .hero-text .role {
+      font-size: .88rem; color: rgba(255,255,255,.45); font-weight: 400;
+      margin-bottom: 14px;
+    }
+    .badges { display:flex; gap:8px; flex-wrap:wrap; }
+    .badge {
+      font-size: .7rem; font-weight: 700; letter-spacing: .6px;
+      padding: 4px 12px; border-radius: 999px;
+      border: 1px solid;
+      text-transform: uppercase;
+    }
+    .badge.blue   { color:#60a5fa; border-color:rgba(96,165,250,.4); background:rgba(96,165,250,.08); }
+    .badge.purple { color:#c084fc; border-color:rgba(192,132,252,.4); background:rgba(192,132,252,.08); }
+    .badge.cyan   { color:#22d3ee; border-color:rgba(34,211,238,.4);  background:rgba(34,211,238,.08); }
+
+    /* ── Section title ───────────────────────────────── */
+    .sec-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: 1.2px;
+      text-transform: uppercase; color: rgba(255,255,255,.35);
+      margin-bottom: 18px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .sec-title::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,.08);
+    }
+
+    /* ── Info grid ───────────────────────────────────── */
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .info-cell {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 14px; padding: 14px 16px;
+      transition: background .2s, transform .2s;
+    }
+    .info-cell:hover { background:rgba(255,255,255,.08); transform:translateY(-2px); }
+    .info-cell .ic-lbl { font-size:.68rem; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:.7px; margin-bottom:4px; }
+    .info-cell .ic-val { font-size:.92rem; font-weight:600; color:#e2e8f0; }
+    .ic-icon { font-size:1.1rem; margin-bottom:6px; }
+
+    /* ── Skills ──────────────────────────────────────── */
+    .skills { display:flex; flex-wrap:wrap; gap:10px; }
+    .skill {
+      display:flex; align-items:center; gap:7px;
+      padding:8px 14px; border-radius:12px;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.09);
+      font-size:.82rem; font-weight:600;
+      transition:background .2s, transform .2s;
+    }
+    .skill:hover { background:rgba(99,102,241,.18); transform:translateY(-2px); }
+    .skill .dot { width:7px;height:7px;border-radius:50%; flex-shrink:0; }
+
+    /* ── Docker card ─────────────────────────────────── */
+    .docker-card {
+      background: linear-gradient(135deg, rgba(59,130,246,.1), rgba(139,92,246,.1));
+      border-color: rgba(99,102,241,.25) !important;
+    }
+    .docker-rows { display:flex; flex-direction:column; gap:0; }
+    .dr {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    .dr:last-child { border-bottom:none; }
+    .dr-key { font-size:.75rem; color:rgba(255,255,255,.4); font-weight:500; }
+    .dr-val {
+      font-size:.8rem; font-weight:700;
+      font-family:'Courier New',monospace;
+      padding:3px 10px; border-radius:7px;
+    }
+    .dr-val.mono  { background:rgba(99,102,241,.15); color:#c7d2fe; }
+    .dr-val.green { background:rgba(34,197,94,.12);  color:#86efac; }
+    .dr-val.blue  { background:rgba(59,130,246,.15); color:#93c5fd; }
+
+    /* ── Status footer ───────────────────────────────── */
+    .status-footer {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 24px;
+      background:rgba(34,197,94,.07);
+      border:1px solid rgba(34,197,94,.2);
+      border-radius:16px;
+      font-size:.82rem; font-weight:600; color:#4ade80;
+      letter-spacing:.3px;
+    }
+    .live-dot {
+      width:9px; height:9px; border-radius:50%;
+      background:var(--green);
+      animation:ping 1.4s ease-in-out infinite;
+    }
+    @keyframes ping {
+      0%  { box-shadow:0 0 0 0   rgba(34,197,94,.7); }
+      70% { box-shadow:0 0 0 10px rgba(34,197,94,0); }
+      100%{ box-shadow:0 0 0 0   rgba(34,197,94,0); }
+    }
+
+    @media(max-width:560px){
+      .hero { flex-direction:column; text-align:center; }
+      .badges { justify-content:center; }
+      .info-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="wrapper">
+
+    <!-- ── Hero ── -->
+    <div class="card">
+      <div class="hero">
+        <div class="avatar">👨‍💻</div>
+        <div class="hero-text">
+          <h1>Nguyễn Hoàng Anh</h1>
+          <p class="role">Software Engineering Student · HUTECH University</p>
+          <div class="badges">
+            <span class="badge blue">Java</span>
+            <span class="badge purple">Spring Boot</span>
+            <span class="badge cyan">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Thông tin sinh viên ── -->
+    <div class="card">
+      <div class="sec-title">🎓 Thông tin sinh viên</div>
+      <div class="info-grid">
+        <div class="info-cell">
+          <div class="ic-icon">🪪</div>
+          <div class="ic-lbl">Mã số sinh viên</div>
+          <div class="ic-val">2280600079</div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">📚</div>
+          <div class="ic-lbl">Khoa</div>
+          <div class="ic-val">Công nghệ Thông tin</div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">🏫</div>
+          <div class="ic-lbl">Trường</div>
+          <div class="ic-val">HUTECH</div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">📅</div>
+          <div class="ic-lbl">Khóa học</div>
+          <div class="ic-val">2022 – 2026</div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">🗺️</div>
+          <div class="ic-lbl">Địa chỉ</div>
+          <div class="ic-val">TP. Hồ Chí Minh</div>
+        </div>
+        <div class="info-cell">
+          <div class="ic-icon">🎯</div>
+          <div class="ic-lbl">Chuyên ngành</div>
+          <div class="ic-val">Kỹ thuật Phần mềm</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Kỹ năng ── -->
+    <div class="card">
+      <div class="sec-title">⚡ Kỹ năng</div>
+      <div class="skills">
+        <div class="skill"><span class="dot" style="background:#f59e0b"></span>Java 17</div>
+        <div class="skill"><span class="dot" style="background:#6366f1"></span>Spring Boot</div>
+        <div class="skill"><span class="dot" style="background:#2563eb"></span>Docker</div>
+        <div class="skill"><span class="dot" style="background:#3b82f6"></span>MySQL</div>
+        <div class="skill"><span class="dot" style="background:#ec4899"></span>REST API</div>
+        <div class="skill"><span class="dot" style="background:#10b981"></span>Git / GitHub</div>
+        <div class="skill"><span class="dot" style="background:#f97316"></span>Maven</div>
+        <div class="skill"><span class="dot" style="background:#8b5cf6"></span>JMS / ActiveMQ</div>
+      </div>
+    </div>
+
+    <!-- ── Docker info ── -->
+    <div class="card docker-card">
+      <div class="sec-title">🐳 Docker Image</div>
+      <div class="docker-rows">
+        <div class="dr">
+          <span class="dr-key">Image</span>
+          <span class="dr-val mono">nguyenhoanganh111024/duanjava</span>
+        </div>
+        <div class="dr">
+          <span class="dr-key">Tag</span>
+          <span class="dr-val mono">latest</span>
+        </div>
+        <div class="dr">
+          <span class="dr-key">Runtime</span>
+          <span class="dr-val blue">Java 17 · eclipse-temurin</span>
+        </div>
+        <div class="dr">
+          <span class="dr-key">Framework</span>
+          <span class="dr-val blue">Spring Boot</span>
+        </div>
+        <div class="dr">
+          <span class="dr-key">Port</span>
+          <span class="dr-val mono">8080</span>
+        </div>
+        <div class="dr">
+          <span class="dr-key">Status</span>
+          <span class="dr-val green">✓ Running</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Status ── -->
+    <div class="status-footer">
+      <div class="live-dot"></div>
+      Container đang hoạt động · localhost:8080
+    </div>
+
+  </div>
+
+</body>
+</html>
